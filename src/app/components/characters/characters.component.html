@@ -1,7 +1,6 @@
-<div>
-  <h2 class="text-light mb-3">Marvel Characters</h2>
-
-  <main class="px-4">
+<div class="px-4">
+  <h2 class="text-light mb-3">Characters</h2>
+  <main>
     <div [ngClass]="requestError() ? '' : 'characters-container'">
       @if (loading()) { @for (item of charactersPlaceholders; track $index) {
       <app-character-card [loading]="true"></app-character-card>
@@ -12,4 +11,18 @@
       } }
     </div>
   </main>
+
+  @if(!loading() && !requestError() && pagination()) {
+  <mat-paginator
+    class="demo-paginator"
+    (page)="handlePageEvent($event)"
+    [length]="pagination()!.total"
+    [pageSize]="pagination()!.limit"
+    [pageIndex]="pagination()!.offset"
+    [hidePageSize]="false"
+    [showFirstLastButtons]="true"
+    [pageSizeOptions]="[10, 20, 30]"
+  >
+  </mat-paginator>
+  }
 </div>

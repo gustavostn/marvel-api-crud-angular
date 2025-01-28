@@ -1,9 +1,12 @@
 import { Character } from './../../../../models/interface/character.interface';
 
-export interface CharacterApiResponse {
+export interface CharacterPagination {
   offset: number;
   limit: number;
   total: number;
   count: number;
-  results: Character[];
 }
+
+export type CharacterApiResponse = CharacterPagination & {
+  results: Character[];
+};

@@ -6,7 +6,10 @@ import { CharactersService as CharactersApiService } from '../../services/v1/cha
 export class CharactersService {
   private _charactersService = inject(CharactersApiService);
 
-  public characters() {
-    return this._charactersService.getCharacters();
+  public characters(offset: number, limit: number) {
+    return this._charactersService.getCharacters(
+      offset.toString(),
+      limit.toString()
+    );
   }
 }

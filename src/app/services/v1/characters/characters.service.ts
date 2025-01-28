@@ -11,18 +11,23 @@ export class CharactersService {
   private _restService = inject(RestService);
   public readonly path = 'v1/public/characters';
 
-  public getCharacters(): Observable<{
+  public getCharacters(
+    offset: string,
+    limit: string
+  ): Observable<{
     error: boolean;
     data: CharacterApiResponse;
   }> {
-    return this._restService.get<CharacterApiResponse>(this.path).pipe(
-      map((response) => {
-        if (response.error)
-          return { error: true, data: {} as CharacterApiResponse };
-        response.data.results = this._handleCharacters(response.data.results);
-        return { error: false, data: response.data };
-      })
-    );
+    return this._restService
+      .get<CharacterApiResponse>(this.path, { offset, limit })
+      .pipe(
+        map((response) => {
+          if (response.error)
+            return { error: true, data: {} as CharacterApiResponse };
+          response.data.results = this._handleCharacters(response.data.results);
+          return { error: false, data: response.data };
+        })
+      );
   }
 
   private _handleCharacters(characters: Character[]): Character[] {
