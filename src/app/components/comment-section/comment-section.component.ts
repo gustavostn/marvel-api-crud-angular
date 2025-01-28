@@ -90,13 +90,17 @@ export class CommentSectionComponent {
     this.submit.set(true);
     if (this.form.invalid) return;
     this.loading.set(true);
-    if (this.form.get('id')) this._saveCommentEdit();
+    console.log(
+      'caiu aqui 2222222',
+      this.form.value,
+      Boolean(this.form.get('id'))
+    );
+    if (this.form.get('id')?.value) this._saveCommentEdit();
     else this.createComment();
   }
 
   public createComment(): void {
-    if (this.form.get('id')) {
-    }
+    console.log('caiu aqui');
     this.form.get('id')?.setValue(Date.now());
     this._commentsService.createComment(this.form.value).subscribe(() => {
       this.comments.push(this.form.value);
@@ -133,10 +137,5 @@ export class CommentSectionComponent {
       );
       this.loading.set(false);
     });
-  }
-
-  public close(): void {
-    this.form.reset();
-    this.submit.set(false);
   }
 }

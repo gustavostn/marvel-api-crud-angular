@@ -1,6 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { delay, map, Observable } from 'rxjs';
 import { RestService } from '../../shared/rest.service';
+import { Comment } from './interface/comments-api.interface';
 
 @Injectable({
   providedIn: 'root',

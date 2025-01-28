@@ -1,7 +1,7 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { Character } from '../../models/interface/character.interface';
 import { CharacterCardComponent } from '../character-card/character-card.component';
-import { CharactersService } from './characters.service';
+import { CharactersService } from './service/characters.service';
 import { ErrorMessageComponent } from '../error-message/error-message.component';
 import { NgClass } from '@angular/common';
 import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';

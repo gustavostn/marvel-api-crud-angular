@@ -87,15 +87,4 @@ export class CharacterHistoryComponent implements OnInit {
     // TO DO: Clear user navigation history to prevent access the page with problem again
     this._router.navigateByUrl('/');
   }
-
-  comments: { name: string; text: string }[] = [];
-  name: string = '';
-  text: string = '';
-
-  addComment() {
-    if (this.name.trim() && this.text.trim()) {
-      this.comments.push({ name: this.name, text: this.text });
-      this.text = '';
-    }
-  }
 }
