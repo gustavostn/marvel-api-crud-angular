@@ -4,6 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { SearchComponent } from '../search/search.component';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +16,7 @@ import { SearchComponent } from '../search/search.component';
     MatIconModule,
     MatTooltipModule,
     SearchComponent,
+    NgClass,
   ],
 })
 export class HeaderComponent implements OnInit {

@@ -1,6 +1,12 @@
 <mat-toolbar class="position-relative z-1">
   <div class="w-100 hstack justify-content-between">
-    <h1 class="fs-3 text-primary">Marvel</h1>
+    <a
+      href="/"
+      class="text-decoration-none fs-3 text-primary bg-opacity bg-none"
+      [ngClass]="displayHomeIcon() ? '' : 'pe-none'"
+    >
+      Marvel
+    </a>
 
     <div>
       @if (displayHomeIcon()) {
