@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   inject,
   OnInit,
@@ -17,15 +16,18 @@ import { ErrorMessageComponent } from '../../components/error-message/error-mess
 import { NgTemplateOutlet } from '@angular/common';
 import { filter } from 'rxjs';
 import { CharactersService } from '../../services/v1/characters/characters.service';
+import { CommentSectionComponent } from '../../components/comment-section/comment-section.component';
 
 @Component({
-  selector: 'app-character-history',
-  templateUrl: './character-history.component.html',
+  selector: 'app-character-infos',
+  templateUrl: './character-infos.component.html',
+
   imports: [
     MatExpansionModule,
     HeaderComponent,
     ErrorMessageComponent,
     NgTemplateOutlet,
+    CommentSectionComponent,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
@@ -84,5 +86,16 @@ export class CharacterHistoryComponent implements OnInit {
   public backToInitialPage(): void {
     // TO DO: Clear user navigation history to prevent access the page with problem again
     this._router.navigateByUrl('/');
+  }
+
+  comments: { name: string; text: string }[] = [];
+  name: string = '';
+  text: string = '';
+
+  addComment() {
+    if (this.name.trim() && this.text.trim()) {
+      this.comments.push({ name: this.name, text: this.text });
+      this.text = '';
+    }
   }
 }

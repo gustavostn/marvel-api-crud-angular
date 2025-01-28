@@ -9,6 +9,7 @@ import * as CryptoJS from 'crypto-js';
 })
 export class RestService {
   private readonly _url = environment.API;
+  private readonly _commentsUrl = environment.API;
   private _httpClient = inject(HttpClient);
 
   private _configureAPIHash(): string {
@@ -29,6 +30,42 @@ export class RestService {
     }/${path}${this._configureAPIHash()}&${this._toQueryString(queries)}`;
     return this._httpClient.get<any>(url).pipe(
       catchError((error) => throwError(() => ({ data: error, error: true }))),
+      map((data) => ({ data: data.data, error: false }))
+    );
+  }
+
+  public delete<T = any>(
+    path: string,
+    queries: Record<string, string> = {}
+  ): Observable<{ data: T; error: boolean }> {
+    const url = `${this._commentsUrl}/${path}&${this._toQueryString(queries)}`;
+    return this._httpClient.get<any>(url).pipe(
+      // Using of to bypass the error and return the data
+      catchError((error) => of(() => ({ data: error, error: true }))),
+      map((data) => ({ data: data.data, error: false }))
+    );
+  }
+
+  public post<T = any>(
+    path: string,
+    body: { [key: string]: any }
+  ): Observable<{ data: T; error: boolean }> {
+    const url = `${this._commentsUrl}/${path}`;
+    return this._httpClient.post<any>(window.location.host, body).pipe(
+      // Using of to bypass the error and return the data
+      catchError((error) => of(() => ({ data: error, error: true }))),
+      map((data) => ({ data: data.data, error: false }))
+    );
+  }
+
+  public put<T = any>(
+    path: string,
+    body: { [key: string]: any }
+  ): Observable<{ data: T; error: boolean }> {
+    const url = `${this._commentsUrl}/${path}`;
+    return this._httpClient.put<any>(url, body).pipe(
+      // Using of to bypass the error and return the data
+      catchError((error) => of(() => ({ data: error, error: true }))),
       map((data) => ({ data: data.data, error: false }))
     );
   }

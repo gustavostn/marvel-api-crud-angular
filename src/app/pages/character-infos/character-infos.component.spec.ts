@@ -1,7 +1,7 @@
 import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { CharacterHistoryComponent } from './character-history.component';
+import { CharacterHistoryComponent } from './character-infos.component';
 
-describe('CharacterHistoryComponent', () => {
+describe('CharacterInfoComponent', () => {
   let component: CharacterHistoryComponent;
   let fixture: ComponentFixture<CharacterHistoryComponent>;
 

@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { CharacterHistoryComponent } from './pages/character-history/character-history.component';
+import { CharacterHistoryComponent } from './pages/character-infos/character-infos.component';
 
 export const routes: Routes = [
   {

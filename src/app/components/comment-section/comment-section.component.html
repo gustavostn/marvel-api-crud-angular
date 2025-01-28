@@ -1,0 +1,93 @@
+<div class="d-block container bg-light rounded-2 py-2 w-75 mb-3">
+  <form [formGroup]="form" (ngSubmit)="addComment()">
+    <h4 class="text-center p-2">What do you like about this character?</h4>
+    <div class="mb-2">
+      <label for="name" class="form-label">Your Name</label>
+      <input
+        type="email"
+        class="form-control"
+        id="name"
+        aria-describedby="emailHelp"
+        formControlName="name"
+        [ngClass]="{
+          'is-invalid': this.submit() && form.get('name')?.invalid
+        }"
+      />
+      @if(this.submit() && form.get('name')?.invalid){
+      <div class="invalid-feedback">Please inform your name.</div>
+      }
+    </div>
+
+    <div class="mb-2">
+      <label for="comment" class="form-label">Your comment</label>
+      <textarea
+        class="form-control"
+        id="comment"
+        rows="5"
+        style="resize: none"
+        formControlName="text"
+        [ngClass]="{
+          'is-invalid': this.submit() && form.get('text')?.invalid
+        }"
+      ></textarea>
+      @if(this.submit() && form.get('text')?.invalid){
+      <div class="invalid-feedback">Please inform your comment.</div>
+      }
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary align-items-end"
+      [ngClass]="{ 'pe-none opacity-50': this.loading() }"
+    >
+      Submit
+    </button>
+  </form>
+</div>
+
+@if (comments.length) {
+<div class="d-block container bg-primary rounded-2 py-2 w-75 mb-3 text-light">
+  @for (comment of comments; track $index;let first = $first; let last = $last)
+  {
+  <div
+    class="vstack gap-1 py-1"
+    [ngClass]="{
+      'border-bottom border-dark': !last,
+      'p-0': first,
+      'opacity-50 pe-none': comment.id === form.get('id')?.value
+    }"
+  >
+    @if (comment.id === form.get('id')?.value) {
+    <span class="w-100 text-center fst-italic fw-bold text-dark">
+      Editing this comment
+    </span>
+    }
+    <div class="hstack justify-content-between w-100">
+      <span>
+        Name: <b>{{ comment.name | titlecase }}</b>
+      </span>
+
+      <div class="hstack gap-2">
+        <button
+          mat-icon-button
+          aria-label="Edit comment"
+          (click)="editComment(comment.id)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          aria-label="Delete comment"
+          (click)="deleteComment(comment.id)"
+        >
+          <mat-icon>delete2</mat-icon>
+        </button>
+      </div>
+    </div>
+    <span>Comment: {{ comment.text }}</span>
+  </div>
+
+  }
+</div>
+}
