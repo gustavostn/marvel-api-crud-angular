@@ -1,5 +1,6 @@
 <div class="px-4">
   <h2 class="text-light mb-3">Characters</h2>
+  <!-- TO DO: Replace @for for angular cdk-virtual-scroll-viewport -->
   <main>
     <div [ngClass]="requestError() ? '' : 'characters-container'">
       @if (loading()) { @for (item of charactersPlaceholders; track $index) {
@@ -12,9 +13,8 @@
     </div>
   </main>
 
-  @if(!loading() && !requestError() && pagination()) {
+  @if(!loading() && !requestError()) {
   <mat-paginator
-    class="demo-paginator"
     (page)="handlePageEvent($event)"
     [length]="pagination()!.total"
     [pageSize]="pagination()!.limit"

@@ -1,0 +1,62 @@
+<app-header [displayHomeIcon]="true"></app-header>
+
+<div class="container">
+  @if (loading()) {
+  <ng-container *ngTemplateOutlet="loader"> </ng-container>
+  } @else if(!character()) {
+  <app-error-message
+    message="Character data not found."
+    buttonLabel="Back to initial page"
+    (retry)="backToInitialPage()"
+  ></app-error-message>
+
+  } @else {
+  <div class="py-4 w-100 h-100 container">
+    <div class="vstack align-items-center gap-3 mb-3">
+      <img
+        [src]="character()!.thumbnail.url"
+        [alt]="character()!.name"
+        width="240px"
+        height="240px"
+        class="rounded-5 border border-3 border-light"
+      />
+
+      <h1 class="text-light">{{ character()!.name }}</h1>
+    </div>
+
+    <main class="vstack bg-primary p-3 rounded-2 gap-2">
+      @for (property of characterDetails; track $index) {
+      <mat-accordion>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title> {{ property.label }} </mat-panel-title>
+            <mat-panel-description>
+              {{ property.description }}
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+
+          <ul class="list-group bg-dark">
+            @for (item of character()![property.key].items; track $index) {
+            <li class="list-group-item bg-dark text-light">{{ item.name }}</li>
+            } @empty {
+            <li class="list-group-item bg-dark text-light">
+              No items available
+            </li>
+            }
+          </ul>
+        </mat-expansion-panel>
+      </mat-accordion>
+      }
+    </main>
+  </div>
+  }
+</div>
+
+<ng-template #loader>
+  <div
+    class="w-100 justify-content-center align-items-center p-5 vstack gap-2 text-light"
+  >
+    <h3>Loading character informations</h3>
+    <div class="spinner-border" role="status"></div>
+  </div>
+</ng-template>

@@ -37,4 +37,21 @@ export class CharactersService {
       return item;
     });
   }
+
+  public getCharacterByID(characterID: number): Observable<{
+    error: boolean;
+    data: Character;
+  }> {
+    return this._restService
+      .get<CharacterApiResponse>(`${this.path}/${characterID}`)
+      .pipe(
+        map((response) => {
+          if (response.error) return { error: true, data: {} as Character };
+          return {
+            error: false,
+            data: this._handleCharacters(response.data.results)[0],
+          };
+        })
+      );
+  }
 }

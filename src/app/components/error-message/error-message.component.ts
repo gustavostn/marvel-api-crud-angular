@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-error-message',
@@ -7,13 +7,13 @@ import { Component, output } from '@angular/core';
       class="hstack align-items-center justify-content-center gap-3 flex-wrap"
     >
       <div class="vstack gap-3 h-100">
-        <h2 class="mt-3 fs-1 text-danger">Oops! Something went wrong!</h2>
+        <h2 class="mt-3 fs-1 text-danger">{{ message() }}</h2>
         <button
           class="btn btn-outline-primary"
           color="primary"
           (click)="retry.emit()"
         >
-          Retry
+          {{ buttonLabel() }}
         </button>
       </div>
       <img
@@ -26,4 +26,6 @@ import { Component, output } from '@angular/core';
 })
 export class ErrorMessageComponent {
   public retry = output();
+  public message = input<string>('Oops! Something went wrong!');
+  public buttonLabel = input<string>('Retry');
 }

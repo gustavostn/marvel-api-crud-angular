@@ -1,4 +1,9 @@
-<div class="card border-0 bg-black text-light" style="width: 180px">
+<div
+  class="card border-0 bg-black text-light"
+  style="width: 180px"
+  [ngClass]="loading() ? 'pe-none' : 'cursor-pointer'"
+  (click)="openCharacterPage()"
+>
   @if (loading()) {
   <svg
     class="bd-placeholder-img card-img-top"
@@ -15,8 +20,8 @@
   </svg>
   } @else {
   <img
-    [src]="character().thumbnail.url"
-    [alt]="character().name"
+    [src]="character()!.thumbnail.url"
+    [alt]="character()!.name"
     width="120px"
     height="250px"
     class="card-img-top rounded-3"
@@ -32,10 +37,7 @@
       <span class="placeholder col-1"></span>
     </p>
     } @else {
-    <h2 class="card-title fs-5">{{ character().name }}</h2>
-    <h4 class="card-title fs-5">
-      {{ character().comics.firstAppearance }}
-    </h4>
+    <h2 class="card-title fs-5">{{ character()!.name }}</h2>
     }
   </div>
 </div>

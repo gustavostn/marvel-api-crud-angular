@@ -61,3 +61,9 @@ interface CharacterUrls {
   type: string;
   url: string;
 }
+
+export interface CharacterDetails {
+  label: string;
+  key: 'comics' | 'series' | 'stories';
+  description: string;
+}
