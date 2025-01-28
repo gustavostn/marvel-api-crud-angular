@@ -3,8 +3,13 @@
 
 html,
 body {
+    --bs-primary-rgb: 226, 54, 54;
+    --bs-primary: #E23636;
+    --bs-black: #0D0202;
+    --mat-sys-surface: var(--bs-black) !important;
+
     height: 100%;
-    --bs-primary-rgb: 225, 0, 54;
+    background-color: var(--bs-black);
 }
 
 body {

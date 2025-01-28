@@ -2,15 +2,27 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { environment } from '../../../environment/environment.prod';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { SearchComponent } from '../search/search.component';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  imports: [MatToolbarModule, MatButtonModule, MatIconModule],
+
+  imports: [
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTooltipModule,
+    SearchComponent,
+  ],
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
+  public displaySearchCharacter: boolean = false;
 
   ngOnInit() {}
+
+  public handleSearchVisibility() {
+    this.displaySearchCharacter = !this.displaySearchCharacter;
+  }
 }

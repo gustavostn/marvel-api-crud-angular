@@ -1,0 +1,8 @@
+<main class="px-4">
+  <h2 class="text-light mb-3">Marvel Characters</h2>
+  <div class="characters-container">
+    @for (character of characters(); track $index) {
+    <app-character-card [character]="character"></app-character-card>
+    }
+  </div>
+</main>

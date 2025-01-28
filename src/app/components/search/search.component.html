@@ -1,0 +1,20 @@
+<div class="w-100 search-character" [ngClass]="visible() ? 'show' : 'hide'">
+  <div class="rounded-3 px-4 pb-2 pt-4 container">
+    <mat-form-field class="w-100 p-0 m-0" onsubmit="searchCharacter()">
+      <mat-label>Search character</mat-label>
+      <input matInput type="text" [(ngModel)]="valueToSearch" />
+
+      <div matSuffix class="hstack">
+        @if (valueToSearch) {
+        <button mat-icon-button aria-label="Clear" (click)="searchCharacter()">
+          <mat-icon>search</mat-icon>
+        </button>
+        }
+
+        <button mat-icon-button aria-label="Close" (click)="closeSearch()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </mat-form-field>
+  </div>
+</div>

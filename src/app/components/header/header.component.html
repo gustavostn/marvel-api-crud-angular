@@ -1,20 +1,27 @@
-<mat-toolbar>
+<mat-toolbar class="position-relative z-1">
   <div class="w-100 hstack justify-content-between">
     <div class="hstack">
       <button mat-icon-button>
         <mat-icon>menu</mat-icon>
       </button>
 
-      <h1 class="fw-bold fs-1 text-primary">Marvel</h1>
+      <h1 class="fs-3 text-light">Marvel</h1>
     </div>
 
     <div class="hstack">
-      <button mat-icon-button>
-        <mat-icon>search</mat-icon>
+      <button mat-icon-button (click)="handleSearchVisibility()">
+        <mat-icon matTooltip="Search character">search</mat-icon>
       </button>
       <button mat-icon-button>
-        <mat-icon>grid_view</mat-icon>
+        <mat-icon matTooltip="Change view">grid_view</mat-icon>
       </button>
     </div>
   </div>
 </mat-toolbar>
+
+<div class="w-100 left-0 top-10">
+  <app-search
+    [visible]="displaySearchCharacter"
+    (close)="handleSearchVisibility()"
+  ></app-search>
+</div>
