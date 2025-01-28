@@ -6,4 +6,5 @@ import { Component, input } from '@angular/core';
 })
 export class CharacterCardComponent {
   public character = input<any>();
+  public loading = input<boolean>();
 }

@@ -5,6 +5,7 @@ export interface Character {
   modified: string;
   thumbnail: CharacterImage;
   resourceURI: string;
+  firstAppearance: number;
   comics: CharacterComics;
   series: CharacterSeries;
   stories: CharacterStories;

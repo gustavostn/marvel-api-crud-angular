@@ -1,8 +1,8 @@
-import { HmacSHA1 } from './../../../node_modules/@types/crypto-js/index.d';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { environment } from '../../environment/environment.prod';
-import { catchError, map, Observable, of } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
+import { environment } from '../../../environment/environment.prod';
+import * as CryptoJS from 'crypto-js';
 
 @Injectable({
   providedIn: 'root',
@@ -23,13 +23,13 @@ export class RestService {
   public get<T = any>(
     path: string,
     queries: Record<string, string> = {}
-  ): Observable<{ data: T; requestError: boolean; error?: any }> {
+  ): Observable<{ data: T; error: boolean }> {
     const url = `${
       this._url
-    }/${path}?${this._configureAPIHash()}&${this._toQueryString(queries)}`;
+    }/${path}${this._configureAPIHash()}&${this._toQueryString(queries)}`;
     return this._httpClient.get<any>(url).pipe(
-      catchError((error) => of({ data: [] as T, requestError: true, error })),
-      map((data) => ({ data, requestError: false }))
+      catchError((error) => throwError(() => ({ data: error, error: true }))),
+      map((data) => ({ data: data.data, error: false }))
     );
   }
 

@@ -1,4 +1,19 @@
-<div class="card border-0 bg-black text-light" style="width: 20rem">
+<div class="card border-0 bg-black text-light" style="width: 180px">
+  @if (loading()) {
+  <svg
+    class="bd-placeholder-img card-img-top"
+    width="100%"
+    height="250"
+    xmlns="http://www.w3.org/2000/svg"
+    role="img"
+    aria-label="Placeholder"
+    preserveAspectRatio="xMidYMid slice"
+    focusable="false"
+  >
+    <title>Placeholder</title>
+    <rect width="100%" height="100%" fill="#868e96"></rect>
+  </svg>
+  } @else {
   <img
     [src]="character().thumbnail.url"
     [alt]="character().name"
@@ -6,13 +21,21 @@
     height="250px"
     class="card-img-top rounded-3"
   />
+  }
+
   <div class="card-body p-2 px-0">
+    @if (loading()) {
+    <h5 class="card-title placeholder-glow">
+      <span class="placeholder col-3"></span>
+    </h5>
+    <p class="card-text placeholder-glow">
+      <span class="placeholder col-1"></span>
+    </p>
+    } @else {
     <h2 class="card-title fs-5">{{ character().name }}</h2>
     <h4 class="card-title fs-5">
       {{ character().comics.firstAppearance }}
     </h4>
-    @if (character().description) {
-    <p class="card-text">{{ character().description }}</p>
     }
   </div>
 </div>
