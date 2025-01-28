@@ -1,7 +1,7 @@
 import { Character } from './../../../models/interface/character.interface';
 import { inject, Injectable } from '@angular/core';
 import { RestService } from '../../shared/rest.service';
-import { map, Observable, tap } from 'rxjs';
+import { map, Observable, Subject } from 'rxjs';
 import { CharacterApiResponse } from './interface/characters-api.interface';
 
 @Injectable({
@@ -10,6 +10,15 @@ import { CharacterApiResponse } from './interface/characters-api.interface';
 export class CharactersService {
   private _restService = inject(RestService);
   public readonly path = 'v1/public/characters';
+
+  private _searchCharactersByNameStatus$ = new Subject<{
+    status: 'LOADING' | 'LOADED' | 'ERROR';
+    data: null | { error: boolean; data: CharacterApiResponse };
+  }>();
+
+  public onSearchCharactersByName$() {
+    return this._searchCharactersByNameStatus$.asObservable();
+  }
 
   public getCharacters(
     offset: string,
@@ -38,12 +47,37 @@ export class CharactersService {
     });
   }
 
-  public getCharacterByID(characterID: number): Observable<{
+  public getCharacterByName(name: string): Observable<{
+    error: boolean;
+    data: CharacterApiResponse;
+  }> {
+    this._searchCharactersByNameStatus$.next({ status: 'LOADING', data: null });
+    return this._restService
+      .get<CharacterApiResponse>(this.path, { nameStartsWith: name })
+      .pipe(
+        map((response) => {
+          if (response.error) {
+            const data = { error: true, data: {} as CharacterApiResponse };
+            this._searchCharactersByNameStatus$.next({ status: 'ERROR', data });
+            return data;
+          }
+          response.data.results = this._handleCharacters(response.data.results);
+          const data = {
+            error: false,
+            data: response.data,
+          };
+          this._searchCharactersByNameStatus$.next({ status: 'LOADED', data });
+          return data;
+        })
+      );
+  }
+
+  public getCharacterByID(id: number): Observable<{
     error: boolean;
     data: Character;
   }> {
     return this._restService
-      .get<CharacterApiResponse>(`${this.path}/${characterID}`)
+      .get<CharacterApiResponse>(`${this.path}/${id}`)
       .pipe(
         map((response) => {
           if (response.error) return { error: true, data: {} as Character };

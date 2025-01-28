@@ -12,4 +12,8 @@ export class CharactersService {
       limit.toString()
     );
   }
+
+  public onSearchByName() {
+    return this._charactersService.onSearchCharactersByName$();
+  }
 }

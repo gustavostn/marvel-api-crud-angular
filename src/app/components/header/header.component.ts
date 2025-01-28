@@ -1,4 +1,4 @@
-import { Component, input, OnInit } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -19,12 +19,11 @@ import { NgClass } from '@angular/common';
     NgClass,
   ],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   public displayHomeIcon = input(false);
   public displaySearchCharacter: boolean = false;
 
-  ngOnInit() {}
-
+  // TODO: Enable button after loading all home content
   public handleSearchVisibility() {
     this.displaySearchCharacter = !this.displaySearchCharacter;
   }

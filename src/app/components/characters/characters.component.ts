@@ -44,6 +44,7 @@ export class CharactersComponent implements OnInit {
 
   ngOnInit() {
     this._getCharacters();
+    this._handleCharacterSearchByName();
   }
 
   private _getCharacters() {
@@ -65,6 +66,28 @@ export class CharactersComponent implements OnInit {
           this.requestError.set(true);
         },
       });
+  }
+
+  // TODO: Handle items per page and others pagination logics to
+  // this search way too
+  private _handleCharacterSearchByName() {
+    this._service.onSearchByName().subscribe({
+      next: ({ data, status }) => {
+        if (status === 'LOADING') {
+          this._onRefreshContent();
+          return;
+        }
+        this.characters.set(data!.data.results);
+        this.loading.set(false);
+        this.requestError.set(false);
+        this.pagination.set(data!.data);
+      },
+      error: () => {
+        this.characters.set([]);
+        this.loading.set(false);
+        this.requestError.set(true);
+      },
+    });
   }
 
   public reloadApplication() {
