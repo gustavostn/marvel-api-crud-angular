@@ -5,7 +5,15 @@ import { CharacterCardComponent } from '../character-card/character-card.compone
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
-  styleUrls: ['./characters.component.scss'],
+  styles: [
+    `
+      .characters-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, 320px);
+        grid-gap: 16px;
+      }
+    `,
+  ],
   imports: [CharacterCardComponent],
 })
 export class CharactersComponent implements OnInit {

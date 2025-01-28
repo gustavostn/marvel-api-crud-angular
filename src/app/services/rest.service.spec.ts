@@ -1,14 +1,21 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { RestService } from './rest.service';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 
-describe('Service: Rest', () => {
+fdescribe('Service: Rest', () => {
+  let service: RestService;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [RestService],
+      providers: [RestService, provideHttpClient(withInterceptorsFromDi())],
     });
+    service = TestBed.inject(RestService);
   });
 
-  it('should ...', inject([RestService], (service: RestService) => {
+  it('Should be created', () => {
     expect(service).toBeTruthy();
-  }));
+  });
 });
