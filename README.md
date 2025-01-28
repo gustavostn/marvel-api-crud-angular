@@ -7,7 +7,7 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 To start a local development server, run:
 
 ```bash
-npm test
+npm start
 ```
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`.
@@ -17,7 +17,7 @@ Once the server is running, open your browser and navigate to `http://localhost:
 To execute unit tests with the [Jest](https://jestjs.io/) test runner, use the following command:
 
 ```bash
-ng test
+npm test
 ```
 
 ## Additional Resources
